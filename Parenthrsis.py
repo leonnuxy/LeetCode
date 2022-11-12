@@ -1,9 +1,10 @@
-# Given a balanced parentheses string s, return the score of the string.
-# The score of a balanced parentheses string is based on the following rule:
-# "()" has score 1.
-# AB has score A + B, where A and B are balanced parentheses strings.
-# (A) has score 2 * A, where A is a balanced parentheses string.
+# Given a balanced parentheses string s, return True if it is valid and False if it is invalid.
+# A valid string has the following properties:
+    # Open brackets must be closed by the same type of brackets.
+    # Open brackets must be closed in the correct order.
+    # Every close bracket has a corresponding open bracket of the same type.
 
+from gettext import find
 from pip import main
 
 
@@ -13,17 +14,27 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        pairs = {'(':')'} # Pairing of parentheses 
-        stack = []  # Stack to store the parentheses
-        score = 0 # Score of the string
-        for i in s: 
-            print (i)
-                
+        # Case 1: if len(s) is not even
+        # Case 2: () is valid
+        if len(s) % 2 != 0:
+            return False
+        stack = list(s)
+        for i in stack:
+            if i == '(':
+                d = s.find(')')
+                stack.pop(d)
+                stack.remove(i)
+            elif i == '{':
+                return find(s, '}')
+            elif i == '[':
+                return find(s, ']')
+        return True
+
+        # return True
 
 
 # Main funtion
 if __name__ == '__main__':
     s = Solution()
-    print(s.scoreOfParentheses("(())"))
-    print("New")
-    print(s.scoreOfParentheses("(()(()))"))
+    # print(s.scoreOfParentheses("(()))"))
+    print(s.scoreOfParentheses("()(())"))
